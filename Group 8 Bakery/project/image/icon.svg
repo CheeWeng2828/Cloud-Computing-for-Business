@@ -1,0 +1,17 @@
+<svg width="220" height="60" viewBox="0 0 220 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon: fork & spoon in a circle -->
+  <circle cx="30" cy="30" r="25" fill="white" opacity="0.15"/>
+  
+  <!-- Fork -->
+  <path d="M24 18 v18" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  <path d="M20 18 v8" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  <path d="M28 18 v8" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Spoon -->
+  <path d="M35 18 q6 6 0 12" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <!-- Text: FOODGO in white -->
+  <text x="70" y="38" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="white">
+    FoodGo
+  </text>
+</svg>
