@@ -28,7 +28,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link" href="/order/shopping_cart.php">
-                                Shopping Cart
+                                <img src="/image/shopping_cart.jpg" alt="shopping cart" style="width: 35px; height:30px">
                                 <?php
                                 $cart = get_cart();
                                 $count = array_sum($cart);
