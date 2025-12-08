@@ -6,7 +6,7 @@ auth("Admin");
 // Searching Function
 $search = req('search');
 $search_sql = $search ? "WHERE o.id LIKE ? OR o.user_id LIKE ? OR p.status LIKE ? OR u.name LIKE ?" : "";
-$params = $search ? ["%$search%", "%$search%", "%$search%","%$search%"] : [];
+$params = $search ? ["%$search%", "%$search%", "%$search%", "%$search%"] : [];
 
 // (1) Sorting
 $fields = [
@@ -17,6 +17,8 @@ $fields = [
     'u.name' => 'Name',
     'p.status' => 'Order Status'
 ];
+
+
 
 $sort = req('sort');
 key_exists($sort, $fields) || $sort = 'o.id';
@@ -37,39 +39,42 @@ $arr = $p->result;
 $_title = 'Order List';
 include '../head.php';
 ?>
-<form method="get">
-    <?= html_search('search', 'placeholder = "Search..."') ?>
-    <button type="submit">Search</button>
-</form>
 
-<p>
-    <?= $p->count ?> of <?= $p->item_count ?> record(s) |
-    Page <?= $p->page ?> of <?= $p->page_count ?>
-</p>
 
-<table class="orderList">
-    <tr>
-
-        <?= table_headers($fields, $sort, $dir, "search=$search&page=$page") ?>
-        <th>More</th>
-    </tr>
-
-    <?php foreach ($arr as $s): ?>
-        <tr>
-            <td><?= $s->id ?></td>
-            <td><?= $s->datetime ?></td>
-            <td><?= $s->count ?></td>
-            <td><?= $s->total ?></td>
-            <td><?= $s->name ?></td>
-            <td><?= $s->status ?></td>
-            <td> <button data-get="orderdetail.php?id=<?= $s->id ?>">Detail</button></td>
-        </tr>
-    <?php endforeach ?>
-</table>
-
-<br>
-<div class="pager">
-    <?= $p->html("search=$search&sort=$sort&dir=$dir") ?>
+<div class="container mt-3">
+    <table id="myTable" class="display">
+        <thead class="bg-danger text-white">
+            <tr>
+                <th>ID</th>
+                <th>Date Time</th>
+                <th>Quantity</th>
+                <th>Total Amount(RM)</th>
+                <th>Name</th>
+                <th>Order Status</th>
+                <th>More</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($arr as $s): ?>
+                <tr>
+                    <td><?= $s->id ?></td>
+                    <td><?= $s->datetime ?></td>
+                    <td><?= $s->count ?></td>
+                    <td><?= $s->total ?></td>
+                    <td><?= $s->name ?></td>
+                    <td><?= $s->status ?></td>
+                    <td> <button data-get="orderdetail.php?id=<?= $s->id ?>">Detail</button></td>
+                </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
+</script>
+
 <?php
 include '../foot.php';

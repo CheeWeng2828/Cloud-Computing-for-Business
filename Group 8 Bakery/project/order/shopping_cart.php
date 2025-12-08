@@ -17,7 +17,7 @@ $_title = 'Your Shopping Cart';
 include '../head.php';
 ?>
 <div class="container mt-3">
-    <table class="table table-dark table-hover">
+    <table class="table table-danger table-hover">
         <tr>
             <th></th>
             <th>Name</th>

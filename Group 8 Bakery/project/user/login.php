@@ -35,16 +35,18 @@ include '../head.php';
 ?>
 <div class="container mt-3">
     <form method="post" class="login">
-        <div class="form-floating mb-3 mt-3">
+        <div class="input-group">
+            <span class="input-group-text">Email</span>
             <?= html_text('email', 'maxlength:"100"','placeholder="Enter email"') ?>
-            <label for="email">Email</label>
             <?= err('email') ?>
         </div>
-        <div class="form-floating mb-3 mt-3">
+        <br>
+        <div class="input-group">
+            <span class="input-group-text">Password</span>
             <?= html_password('password', 'maxlength="100"','placeholder="Enter password"') ?>
-            <label for="password">Password</label>
             <?= err('password') ?>
         </div>
+        <br>
         <section>
             <button class="btn btn-primary">Login</button>
             <button class="btn btn-secondary" type="reset">Reset</button>

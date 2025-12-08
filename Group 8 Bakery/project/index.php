@@ -36,5 +36,6 @@ include 'head.php';
 <?php else: ?>
     <h2>This is Admin Page</h2>
 <?php endif ?>
+
 <?php
 include 'foot.php';

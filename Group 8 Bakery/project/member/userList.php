@@ -3,20 +3,8 @@ include '../base.php';
 
 auth('Admin');
 
-$search = req('search');
-$role = req('role');
-
-if ($role) {
-    $result = $_db->prepare('SELECT * FROM user WHERE name LIKE ? AND role = ?');
-    $result->execute(["%$search%", $role]);
-    $arr = $result->fetchAll();
-}
-
-else{
-    $result = $_db->prepare('SELECT * FROM user WHERE name LIKE ?');
-    $result->execute(["%$search%"]);
-    $arr = $result->fetchAll();
-}
+$result = $_db->query('SELECT * FROM user');
+$arr = $result->fetchAll();
 
 
 
@@ -27,44 +15,48 @@ include '../head.php';
     Create New Admin Account ? <a href="addAdmin.php">Click Me</a>
 </p>
 
-<form method="get">
-    <?= html_search('search', 'placeholder = "Name..."') ?>
-    <?= html_select('role', $_userRole, '') ?>
-    <button type="submit">Search</button>
-</form>
-<p><?= count($arr) ?> record(s)</p>
 
-<table class="memberList">
-    <tr>
-        <th>Id</th>
-        <th>Email</th>
-        <th>Name</th>
-        <th>Role</th>
-        <th>Active</th>
-        <th>Photo</th>
-        <th>More</th>
-    </tr>
 
-    <?php foreach ($arr as $s): ?>
-        <tr>
-            <td><?= $s->id ?></td>
-            <td><?= $s->email ?></td>
-            <td><?= $s->name ?></td>
-            <td><?= $s->role ?></td>
-            <td><?= $s->active ?></td>
-            <td><img src="/photo/<?= $s->photo ?>"></td>
-            <td>
-                <button data-get="memberDetail.php?id=<?= $s->id ?>">Detail</button>
-                <?php if ($s->active == "Yes"): ?>
-                    <button data-post="active.php?id=<?= $s->id ?>" data-confirm="Diactive Account?">Diactive</button>
-                <?php endif ?>
-                <?php if ($s->active == "No"): ?>
-                    <button data-post="active.php?id=<?= $s->id ?>" data-confirm="Reactive Account?">Reactive</button>
-                <?php endif ?>
-            </td>
-        </tr>
-    <?php endforeach ?>
-</table>
+<div class="container mt-3">
+    <table id="myTable" class="display">
+        <thead class="bg-danger text-white">
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Active</th>
+                <th>Photo</th>
+                <th>More</th>
+            </tr>
+        <tbody>
+            <?php foreach ($arr as $s): ?>
+                <tr>
+                    <td><?= $s->id ?></td>
+                    <td><?= $s->email ?></td>
+                    <td><?= $s->name ?></td>
+                    <td><?= $s->role ?></td>
+                    <td><?= $s->active ?></td>
+                    <td><img src="/photo/<?= $s->photo ?>" style="height:50px;weight:50px"></td>
+                    <td>
+                        <button data-get="memberDetail.php?id=<?= $s->id ?>" class="btn btn-outline-info btn-sm">Detail</button>
+                        <?php if ($s->active == "Yes"): ?>
+                            <button data-post="active.php?id=<?= $s->id ?>" data-confirm="Diactive Account?" class="btn btn-outline-danger btn-sm">Diactive</button>
+                        <?php endif ?>
+                        <?php if ($s->active == "No"): ?>
+                            <button data-post="active.php?id=<?= $s->id ?>" data-confirm="Reactive Account?" class="btn btn-outline-success btn-sm">Reactive</button>
+                        <?php endif ?>
+                    </td>
+                </tr>
+            <?php endforeach ?>
+        </tbody>
 
-<?php
-include '../foot.php';
+    </table>
+
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
+    <?php
+    include '../foot.php';

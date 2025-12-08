@@ -66,26 +66,36 @@ include '../head.php';
     <?= count($arr) ?> of <?= $total ?> record(s) |
     Page <?= $p->page ?> of <?= $p->page_count ?>
 </p>
-<table class="orderList">
-    <tr>
-        <?= table_headers($fields, $sort, $dir, "search=$search&page=$page") ?>
-        <th>More</th>
-    </tr>
-    <?php foreach ($arr as $h): ?>
-        <tr>
-            <td><?= $h->id ?></td>
-            <td><?= $h->datetime ?></td>
-            <td><?= $h->count ?></td>
-            <td><?= $h->total ?></td>
-            <td><?= $h->status ?></td>
-            <td> <button data-get="orderdetail.php?id=<?= $h->id ?>">Detail</button></td>
-        </tr>
-    <?php endforeach ?>
-</table>
 
-<br>
-<div class="pager">
-    <?= $p->html("search=$search&sort=$sort&dir=$dir") ?>
+<div class="container mt-3">
+    <table id="myTable" class="display">
+        <thead class="bg-danger text-white">
+            <tr>
+                <th>ID</th>
+                <th>Date Time</th>
+                <th>Quantity</th>
+                <th>Total Amount(RM)</th>
+                <th>Order Status</th>
+                <th>More</th>
+            </tr>
+        </thead>
+        <?php foreach ($arr as $h): ?>
+            <tr>
+                <td><?= $h->id ?></td>
+                <td><?= $h->datetime ?></td>
+                <td><?= $h->count ?></td>
+                <td><?= $h->total ?></td>
+                <td><?= $h->status ?></td>
+                <td> <button data-get="orderdetail.php?id=<?= $h->id ?>">Detail</button></td>
+            </tr>
+        <?php endforeach ?>
+    </table>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
+</script>
 <?php
 include '../foot.php';
