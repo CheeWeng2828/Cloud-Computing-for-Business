@@ -13,78 +13,132 @@ if (is_post()) {
 
 // ----------------------------------------------------------------------------
 
-$_title = 'Your Shopping Cart';
+$_title = '🛒 Your Shopping Cart';
 include '../head.php';
 ?>
-<div class="container mt-3">
-    <table class="table table-danger table-hover">
-        <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Price (RM)</th>
-            <th>Unit</th>
-            <th>Subtotal (RM)</th>
-        </tr>
+<div class="container my-4">
 
-        <?php
-        $count = 0;
-        $total = 0;
+    <div class="row g-4">
 
-        $stm = $_db->prepare('SELECT * FROM product WHERE id = ?');
-        $cart = get_cart();
+        <!-- Cart Items -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-0">
 
-        foreach ($cart as $id => $unit):
-            $stm->execute([$id]);
-            $p = $stm->fetch();
+                    <table class="table align-middle mb-0">
+                        <thead class="table-danger">
+                            <tr>
+                                <th>Item</th>
+                                <th>Price (RM)</th>
+                                <th>Qty</th>
+                                <th>Subtotal (RM)</th>
+                            </tr>
+                        </thead>
 
-            $stock = $p->stock;
-            $subtotal = $p->price * $unit;
-            $count += $unit;
-            $total += $subtotal;
-        ?>
-            <tr>
-                <td class="right">
-                    <img src="/product_img/<?= $p->photo ?>" class="rounded-pill" style="width:80px;height:80px">
-                </td>
-                <td><?= $p->name ?></td>
-                <td class="right"><?= $p->price ?></td>
-                <td>
-                    <form method="post">
-                        <?= html_hidden('id') ?>
-                        <!-- For Update Stock Quantity -->
-                        <?= html_hidden('stock') ?>
-                        <?= html_select('unit', $_units, '') ?>
-                    </form>
-                </td>
-                <td>
-                    <?= sprintf('%.2f', $subtotal) ?>
-                </td>
-            </tr>
-        <?php endforeach ?>
+                        <tbody>
+                            <?php
+                            $count = 0;
+                            $total = 0;
 
-        <tr>
-            <th colspan="3"></th>
-            <th class="right"><?= $count ?></th>
-            <th class="right"><?= sprintf('%.2f', $total) ?></th>
-        </tr>
-    </table>
+                            $stm = $_db->prepare('SELECT * FROM product WHERE id = ?');
+                            $cart = get_cart();
+
+                            foreach ($cart as $id => $unit):
+                                $stm->execute([$id]);
+                                $p = $stm->fetch();
+
+                                $stock = $p->stock;
+                                $subtotal = $p->price * $unit;
+                                $count += $unit;
+                                $total += $subtotal;
+                            ?>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img src="/product_img/<?= $p->photo ?>"
+                                                 class="rounded-circle"
+                                                 style="width:70px;height:70px;object-fit:cover">
+                                            <strong><?= $p->name ?></strong>
+                                        </div>
+                                    </td>
+
+                                    <td><?= number_format($p->price, 2) ?></td>
+
+                                    <td>
+                                        <form method="post" class="d-inline">
+                                            <?= html_hidden('id', $id) ?>
+                                            <?= html_hidden('stock', $stock) ?>
+                                            <?= html_select('unit', $_units,"Remove From Cart",'class="form-select form-select-sm" style="width:80px"') ?>
+                                        </form>
+                                    </td>
+
+                                    <td class="fw-bold">
+                                        <?= number_format($subtotal, 2) ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm sticky-top" style="top: 90px;">
+                <div class="card-body">
+
+                    <h5 class="fw-bold mb-3">Order Summary</h5>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Total Items</span>
+                        <span><?= $count ?></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Total Price</span>
+                        <span class="fw-bold text-danger">
+                            RM <?= number_format($total, 2) ?>
+                        </span>
+                    </div>
+
+                    <hr>
+
+                    <?php if ($cart): ?>
+                        <?php if ($_user?->role == 'Member'): ?>
+                            <?php if ($_user?->address): ?>
+                                <button class="btn btn-warning w-100 fw-bold"
+                                        data-post="checkout.php">
+                                    Checkout 🍔
+                                </button>
+                            <?php else: ?>
+                                <div class="alert alert-warning small mb-0">
+                                    Please update your
+                                    <a href="/user/profile.php" class="alert-link">
+                                        shipping address
+                                    </a>
+                                </div>
+                            <?php endif ?>
+                        <?php else: ?>
+                            <div class="alert alert-info small mb-0">
+                                Please <a href="/user/login.php" class="alert-link">login</a>
+                                as a member to checkout
+                            </div>
+                        <?php endif ?>
+                    <?php else: ?>
+                        <div class="alert alert-secondary small mb-0">
+                            Your cart is empty.
+                        </div>
+                    <?php endif ?>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
-
-<p>
-    <?php if ($cart): ?>
-        <?php if ($_user?->role == 'Member'): ?>
-            <?php if ($_user?->address): ?>
-                <button data-post="checkout.php">Checkout</button>
-            <?php endif ?>
-            <?php if (!$_user?->address): ?>
-                Please update your shipping <a href="/user/profile.php">Address</a> to checkout
-            <?php endif ?>
-        <?php elseif (!$_user): ?>
-            Please <a href="/user/login.php">login</a> as member to checkout
-        <?php endif ?>
-    <?php endif ?>
-</p>
 
 <script>
     $('select').on('change', e => e.target.form.submit());

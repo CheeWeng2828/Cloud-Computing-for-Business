@@ -115,60 +115,124 @@ if (is_post()) {
 $_title = 'Profile';
 include '../head.php'
 ?>
+<style>
+    /* Layout helpers */
+    .profile-card,
+    .address-card {
+        border-radius: 12px;
+    }
 
+    /* Upload / current photo */
+    .upload .current-photo {
+        width: 100%;
+        padding: 6px 0;
+    }
+
+    .upload img {
+        border: 2px solid rgba(0, 0, 0, 0.06);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Make sure textareas and inputs are full width inside the card */
+    .profile-card .form-control,
+    .address-card .form-control {
+        width: 100%;
+    }
+
+    /* Responsive tweak: small screens stack with spacing */
+    @media (max-width: 767.98px) {
+
+        .profile-card,
+        .address-card {
+            margin-bottom: 12px;
+        }
+    }
+</style>
 <form method="post" enctype="multipart/form-data">
-    <?php if ($_user?->role == "Member"): ?>
-        <div class="address-container">
-            <div class="address_details">
-                <h3>Address Information</h3>
+    <div class="container my-4">
+        <div class="row g-4">
+            <!-- LEFT: Profile column -->
+            <div class="col-12 col-md-4">
+                <div class="card profile-card shadow-sm p-3">
+                    <h5 class="mb-3">Profile Details</h5>
 
-                <label for="street_number">Street Number :</label>
-                <?= html_textarea('street_number', 'rows="4"', 'cols="55"') ?>
-                <?= err("street_number") ?>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <?= html_text('email', 'class="form-control" maxlength="100"') ?>
+                        <?= err('email') ?>
+                    </div>
 
-                <label for="city">City:</label>
-                <?= html_text('city', 'maxlength = "50"') ?>
-                <?= err("city") ?>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name:</label>
+                        <?= html_text('name', 'class="form-control" maxlength="100"') ?>
+                        <?= err('name') ?>
+                    </div>
 
-                <label for="state">State:</label>
-                <?= html_text('state', 'maxlength = "50"') ?>
-                <?= err("state") ?>
+                    <div class="mb-3">
+                        <label class="form-label d-block">Photo</label>
+                        <label class="upload d-inline-block" tabindex="0" style="cursor:pointer;">
+                            <?= html_file('profile', 'image/*', 'hidden') ?>
+                            <div class="current-photo d-flex justify-content-center align-items-center">
+                                <img src="/photo/<?= $_user->photo ?>" alt="photo" class="rounded-circle" style="width:96px;height:96px;object-fit:cover;">
+                            </div>
+                        </label>
+                        <?= err('profile') ?>
+                    </div>
+                </div>
+            </div>
 
-                <label for="postcode">Postcode:</label>
-                <?= html_text('postcode', 'maxlength="10"') ?>
-                <?= err("postcode") ?>
+            <!-- RIGHT: Address column (shows only for Member) -->
+            <div class="col-12 col-md-8">
+                <div class="card address-card shadow-sm p-3">
 
+                    <?php if ($_user?->role == "Member"): ?>
+                        <div class="address_details">
+                            <h5 class="mb-3">Address Information</h5>
+
+                            <div class="mb-3">
+                                <label for="street_number" class="form-label">Street Number :</label>
+                                <?= html_textarea('street_number', 'class="form-control" rows="2"') ?>
+                                <?= err("street_number") ?>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="city" class="form-label">City:</label>
+                                    <?= html_text('city', 'class="form-control" maxlength="50"') ?>
+                                    <?= err("city") ?>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="state" class="form-label">State:</label>
+                                    <?= html_text('state', 'class="form-control" maxlength="50"') ?>
+                                    <?= err("state") ?>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="postcode" class="form-label">Postcode:</label>
+                                <?= html_text('postcode', 'class="form-control" maxlength="10"') ?>
+                                <?= err("postcode") ?>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <!-- Non-members see no address fields. You can add other details here if needed -->
+                        <p class="text-muted">Address fields are available for Members only.</p>
+                    <?php endif ?>
+                </div>
+            </div>
+
+        </div> <!-- /.row -->
+
+        <!-- Buttons -->
+        <div class="row mt-4">
+            <div class="col-12 d-flex gap-2">
+                <button type="submit" class="btn btn-success">Submit ✔</button>
+                <button type="reset" class="btn btn-danger">Reset ⟳</button>
             </div>
         </div>
-    <?php endif ?>
-    <div class="address-container">
-        <div class="mb-3 mt-3">
-            <label for="email" class="form-label">Email:</label><br>
-            <?= html_text('email', 'maxlength="100"') ?>
-            <?= err('email') ?><br><br>
-        </div>
-        <div class="mb-3 mt-3">
-
-            <label for="name" class="form-label">Name:</label><br>
-            <?= html_text('name', 'maxlength="100"') ?>
-            <?= err('name') ?><br><br>
-        </div>
-
-        <div class="mb-3 mt-3">
-            <label for="profile" class="form-label">Photo:</label><br>
-            <label class="upload" tabindex="0">
-                <?= html_file('profile', 'image/*', 'hidden') ?>
-                <img src="/photo/<?= $_user->photo ?>"><br><br>
-            </label>
-            <?= err('profile') ?>
-        </div>
-
-        <section>
-            <button class="btn btn-success">Submit ✔</button>
-            <button type="reset" class="btn btn-danger">Reset ⟳</button>
-        </section>
+    </div>
 </form>
-</div>
 </div>
 <?php
 include '../foot.php';

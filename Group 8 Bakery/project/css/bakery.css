@@ -1,12 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Muli:wght@400;600&display=swap');
 
-body, input, button, textarea, select {
+body,
+input,
+button,
+textarea,
+select {
     font: 16px 'Quicksand', sans-serif;
 }
-/* Ensure the page uses full height */
-html, body {
+
+html,
+body {
     height: 100%;
-    margin: 0;
+}
+
+.layout {
+    min-height: 100vh;
+}
+
+#sidebar {
+    width: 240px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+}
+
+#content {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+}
+
+.nav-link {
+    border-radius: 8px;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 /* Wrapper for the entire page content */
@@ -285,7 +314,7 @@ nav.pager a:hover {
     border-radius: 5px;
 }
 
-.backButton:hover{
+.backButton:hover {
     opacity: 1;
 }
 
@@ -407,6 +436,7 @@ table.orderList button {
 table.orderList button:hover {
     background-color: #45a049;
 }
+
 .orderList th a {
     text-decoration: none;
     color: #4E342E;
@@ -442,13 +472,14 @@ table.orderList button:hover {
     background: #4E342E;
 }
 
-.orderList .productDelete{
+.orderList .productDelete {
     background-color: #c7261d;
 }
 
-.orderList .productDelete:hover{
+.orderList .productDelete:hover {
     background-color: #c7261d;
 }
+
 /*===================================================================================
                Menu
 ===================================================================================*/
@@ -630,7 +661,7 @@ button.pending:hover {
     background-color: #45a049;
 }
 
-.statusSub{
+.statusSub {
     width: 150px;
     height: 50px;
     background: #4CAF50;
@@ -642,32 +673,32 @@ button.pending:hover {
     border-radius: 5px;
 }
 
-.statusSub:hover{
+.statusSub:hover {
     opacity: 1;
 }
 
-#order{
+#order {
     width: 50%;
     padding: 8px 17px;
     text-align: center;
-    font-size:medium;
+    font-size: medium;
 }
 
 /*===================================================================================
     Update Product Page
 ===================================================================================*/
 
-.updateProduct{
+.updateProduct {
     display: inline-block;
     margin: 15px 10px;
 }
 
-.updateProduct input{
+.updateProduct input {
     width: 100%;
     border-radius: 5px;
 }
 
-.updateSub{
+.updateSub {
     color: white;
     background-color: #4CAF50;
     opacity: 0.9;
@@ -678,7 +709,7 @@ button.pending:hover {
     margin-top: 20px;
 }
 
-.updateReset{
+.updateReset {
     color: white;
     background-color: #FF4136;
     opacity: 0.9;
@@ -689,19 +720,22 @@ button.pending:hover {
     margin-top: 20px;
 }
 
-.updateReset,.updateSub{
+.updateReset,
+.updateSub {
     width: 50%;
     float: left;
     cursor: pointer;
 }
 
-.updateReset:hover,.updateSub:hover{
+.updateReset:hover,
+.updateSub:hover {
     opacity: 1;
 }
 
 
 /* Address and Payment Container */
-.address-container, .payment-container {
+.address-container,
+.payment-container {
     width: 60%;
     margin: 20px auto;
     background-color: #fff;
@@ -710,7 +744,8 @@ button.pending:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.address_details, .payment-details {
+.address_details,
+.payment-details {
     margin-bottom: 20px;
 }
 
@@ -722,7 +757,9 @@ label {
 }
 
 /* Input Fields */
-.address_details input[type="text"], .address_details textarea ,.payment-details input[type="text"]{
+.address_details input[type="text"],
+.address_details textarea,
+.payment-details input[type="text"] {
     width: 100%;
     padding: 10px;
     margin: 5px 0;
@@ -736,7 +773,9 @@ label {
     resize: vertical;
 }
 
-.address_details input[type="text"]:focus,.address_details textarea:focus,.payment-details input[type="text"]:focus {
+.address_details input[type="text"]:focus,
+.address_details textarea:focus,
+.payment-details input[type="text"]:focus {
     border-color: #5cb85c;
     outline: none;
 }
@@ -758,16 +797,16 @@ label {
 
 .expiry-date-container {
     display: flex;
-    align-items: center; 
+    align-items: center;
 }
 
 .expiry-date-container input {
-    width: 50px; 
-    margin-right: 5px; 
+    width: 50px;
+    margin-right: 5px;
 }
 
 .expiry-date-container span {
-    margin-right: 5px; 
+    margin-right: 5px;
 }
 
 /* Error Message Styles */
@@ -790,24 +829,24 @@ label {
     border-collapse: collapse;
     font-family: Arial, sans-serif;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
+}
+
 。paymentInfo th {
     background-color: #f8f8f8;
     text-align: left;
     padding: 0.75rem;
     font-size: 1rem;
     border-bottom: 2px solid #e0e0e0;
-  }
-  
+}
+
 .paymentInfo td {
     padding: 0.75rem;
     border-bottom: 1px solid #e0e0e0;
     font-size: 0.95rem;
-  }
-  
-  /* Buttons (Update & Confirm) */
-.paymentInfobutton{
+}
+
+/* Buttons (Update & Confirm) */
+.paymentInfobutton {
     display: inline-block;
     margin: 1rem 0.5rem 0 0;
     padding: 0.6rem 1.2rem;
@@ -818,7 +857,64 @@ label {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s ease;
-  }
-  .paymentInfobutton {
+}
+
+.paymentInfobutton {
     background-color: #0056b3;
-  }
+}
+
+/* wrapper */
+.theme-toggle {
+    display: flex;
+    justify-content: center;
+}
+
+/* hide checkbox */
+.theme-toggle input {
+    display: none;
+}
+
+/* toggle body */
+.toggle-btn {
+    width: 54px;
+    height: 28px;
+    background: #f1f1f1;
+    border-radius: 50px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+/* icon knob */
+.toggle-icon {
+    width: 22px;
+    height: 22px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+/* default (light) */
+.toggle-icon::after {
+    content: "☀️";
+}
+
+/* checked state */
+#themeToggle:checked+.toggle-btn {
+    background: #222;
+}
+
+#themeToggle:checked+.toggle-btn .toggle-icon {
+    transform: translateX(26px);
+}
+
+#themeToggle:checked+.toggle-btn .toggle-icon::after {
+    content: "🌙";
+}

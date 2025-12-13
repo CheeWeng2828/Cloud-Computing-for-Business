@@ -23,23 +23,32 @@
     <header>
         <div id="info"><?= temp('info') ?></div>
 
-        <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
-            <div class="container">
-                <a class="navbar-brand" href="/">
-                    <img src="/image/icon.svg" alt="logo" class="rounded-pill">
-                </a>
-                <ul class="navbar-nav">
-                    <li class="nav-item d-flex align-items-center">
-                        <div class="form-check form-switch d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" id="themeToggle" name="darkmode" value="yes">
-                            <label class="form-check-label text-light" for="mySwitch">Dark Mode</label>
-                        </div>
+        <!-- Sidebar -->
+        <div class="d-flex">
+            <div id="sidebar" class="bg-danger text-white p-3">
+                <!-- Logo -->
+                <div class="text-center mb-4">
+                    <a href="/">
+                        <img src="/image/icon.svg" class="rounded-pill" width="100%">
+                    </a>
+                </div>
+
+                <!-- Dark Mode -->
+                <div class="theme-toggle mb-3">
+                    <input type="checkbox" id="themeToggle">
+                    <label for="themeToggle" class="toggle-btn">
+                        <span class="toggle-icon"></span>
+                    </label>
+                </div>
+
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/">🏠 Home</a>
                     </li>
                     <?php if (!$_user || $_user?->role == "Member"): ?>
-
-                        <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link" href="/order/shopping_cart.php">
-                                <img src="/image/shopping_cart.png" alt="shopping cart" style="width: 35px; height:30px">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/order/shopping_cart.php">
+                                🛒 Cart
                                 <?php
                                 $cart = get_cart();
                                 $count = array_sum($cart);
@@ -49,51 +58,56 @@
                         </li>
                     <?php endif ?>
 
-
                     <?php if ($_user?->role == "Admin"): ?>
                         <?= set_cart() ?>
-                        <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link" href="/product/product_maintenance.php">Product</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/product/product_maintenance.php">📦 Product</a>
                         </li>
-                        <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link" href="/member/userList.php">User List</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/member/userList.php">👥 User List</a>
                         </li>
-                        <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link" href="/order/order_list.php">Order List</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/order/order_list.php">📄 Order List</a>
                         </li>
                     <?php endif ?>
 
                     <?php if (!$_user): ?>
-                        <li class="nav-item dropdown d-flex align-items-center">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Account</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">Account</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="/user/login.php">Login</a></li>
-                                <li><a class="dropdown-item" href="/user/register.php">Register</a></li>
-                                <li><a class="dropdown-item" href="/user/reset.php">Forget Password</a></li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="/user/login.php">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="/user/register.php">Register</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="/user/reset.php">Forget Password</a>
+                                </li>
                             </ul>
                         </li>
                     <?php endif ?>
+
                     <?php if ($_user?->role == "Member"): ?>
-                        <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link" href="/order/history.php">Order History</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/order/history.php">📜 Order History</a>
                         </li>
                     <?php endif ?>
 
                     <?php if ($_user): ?>
-                        <li class="nav-item dropdown d-flex align-items-center">
-                            <a class="nav-link dropdown " href="#" role="button" data-bs-toggle="dropdown"><img class="rounded-pill"
-                                    width="40px" height="40px" src="/photo/<?= $_user->photo ?>"></a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="/user/profile.php">Profile</a></li>
-                                <li><a class="dropdown-item" href="/user/password.php">Password</a></li>
-                                <li><a class="dropdown-item" href="/user/logout.php">Logout</a></li>
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/user/profile.php">👤 Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/user/password.php">🔑 Password</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/user/logout.php">🚪 Logout</a>
                         </li>
                     <?php endif ?>
 
                 </ul>
             </div>
-        </nav>
     </header>
     <script>
         let savedTheme = localStorage.getItem("theme");
@@ -121,5 +135,5 @@
     </script>
 
 
-    <main>
+    <main id="content" class="p-4 flex-fill">
         <h1 class="p-5 text-center"><?= $_title ?? 'Untitled' ?></h1>
