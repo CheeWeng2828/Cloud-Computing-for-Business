@@ -39,12 +39,12 @@ include '../head.php';
                     <td><?= $s->active ?></td>
                     <td><img src="/photo/<?= $s->photo ?>" style="height:50px;weight:50px"></td>
                     <td>
-                        <button data-get="memberDetail.php?id=<?= $s->id ?>" class="btn btn-outline-info btn-sm">Detail</button>
+                        <button data-get="memberDetail.php?id=<?= $s->id ?>" class="btn btn-info">Detail</button>
                         <?php if ($s->active == "Yes"): ?>
-                            <button data-post="active.php?id=<?= $s->id ?>" data-confirm="Diactive Account?" class="btn btn-outline-danger btn-sm">Diactive</button>
+                            <button data-post="active.php?id=<?= $s->id ?>" data-confirm="Diactive Account?" class="btn btn-danger">Diactive</button>
                         <?php endif ?>
                         <?php if ($s->active == "No"): ?>
-                            <button data-post="active.php?id=<?= $s->id ?>" data-confirm="Reactive Account?" class="btn btn-outline-success btn-sm">Reactive</button>
+                            <button data-post="active.php?id=<?= $s->id ?>" data-confirm="Reactive Account?" class="btn btn-success">Reactive</button>
                         <?php endif ?>
                     </td>
                 </tr>

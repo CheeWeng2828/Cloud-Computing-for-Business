@@ -22,7 +22,7 @@ $_title = 'User Detail';
 include '../head.php'
 ?>
 
-<table class="detail">
+<table class="table table-striped">
     <?php foreach ($detail as $d): ?>
 
         <tr>
@@ -37,9 +37,7 @@ include '../head.php'
 
         <tr>
             <th>Role : </th>
-            <form method="post">
-                <td><?= html_select('role', $_userRole, $d->role) ?></td>
-            </form>
+            <td><?= $d->role ?></td>
         </tr>
         <?php if ($d->role == 'Member'): ?>
             <tr>
@@ -52,9 +50,9 @@ include '../head.php'
             <td><img src="/photo/<?= $d->photo ?>"></td>
         </tr>
     <?php endforeach ?>
-
-
 </table>
+
+<button data-get="userList.php" class="btn btn-light">Back</button>
 
 <script>
     $('select').on('change', e => e.target.form.submit());

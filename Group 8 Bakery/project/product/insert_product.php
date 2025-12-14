@@ -54,7 +54,7 @@ if (is_post()) {
      ( id , name , price , photo,stock,description,active)
      VALUES(?,?,?,?,?,?,"Yes")');
 
-        $stm->execute([$id, $name, $price, $photo, $stock,$description]);
+        $stm->execute([$id, $name, $price, $photo, $stock, $description]);
 
 
         temp('info', 'Insert Sucessful');
@@ -67,40 +67,54 @@ $_title = "Insert Product";
 include '../head.php';
 ?>
 
-<form method="post" class="register" enctype="multipart/form-data">
-    <label for="id">Id</label>
-    <?= html_text('id', 'maxlength="4" data-upper') ?><br>
-    <?= err('id') ?>
+<div class="container mt-3">
+    <form method="post" class="register" enctype="multipart/form-data">
+        <div class="input-group">
+            <span class="input-group-text">Id</span>
+            <?= html_text('id', 'maxlength="4" data-upper') ?><br>
+            <?= err('id') ?>
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-text">Name</span>
+            <?= html_text('name', 'maxlength="100"') ?><br>
+            <?= err('name') ?>
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-text">Price</span>
+            <?= html_number('price', '1', '100', '0.5') ?><br>
+            <?= err('price') ?>
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-text">Stock</span>
+            <?= html_number('stock', '1', '100', '1') ?><br>
+            <?= err('stock') ?>
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-text">Description</span>
+            <?= html_textarea('description', 'rows="4"', 'cols="55"') ?>
+            <?= err("description") ?>
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-text">Photo</span>
+            <label class="upload" tabindex="0">
+                <?= html_file('photo', 'image/*', 'hidden') ?>
+                <img src="/image/placeholder.jpg">
+            </label><br>
+            <?= err('photo') ?>
+        </div>
+        <br>
+        <section>
+            <button class="btn btn-success">Submit</button>
+            <button type="reset" class="btn btn-danger">Reset</button>
+        </section>
+    </form>
+</div>
 
-
-    <label for="name">Name</label>
-    <?= html_text('name', 'maxlength="100"') ?><br>
-    <?= err('name') ?>
-
-    <label for="price">Price</label>
-    <?= html_number('price', '1', '100', '0.5') ?><br>
-    <?= err('price') ?>
-
-    <label for="stock">Stock</label>
-    <?= html_number('stock', '1', '100', '1') ?><br>
-    <?= err('stock') ?>
-
-    <label for="description">Description</label>
-    <?= html_textarea('description', 'rows="4"', 'cols="55"') ?>
-    <?= err("description") ?>
-
-    <label for="photo">Photo</label>
-    <label class="upload" tabindex="0">
-        <?= html_file('photo', 'image/*', 'hidden') ?>
-        <img src="/image/placeholder.jpg">
-    </label><br>
-    <?= err('photo') ?>
-
-    <section>
-        <button class="submitReg">Submit ✔</button>
-        <button type="reset" class="resetReg">Reset ⟳</button>
-    </section>
-</form>
 
 <?php
 include '../foot.php';

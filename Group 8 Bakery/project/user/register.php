@@ -113,8 +113,8 @@ include '../head.php';
         </div>
         <br>
         <section>
-            <button class="btn btn-success">Submit ✔</button>
-            <button type="reset" class="btn btn-danger">Reset ⟳</button>
+            <button class="btn btn-success">Submit</button>
+            <button type="reset" class="btn btn-danger">Reset</button>
         </section>
     </form>
 </div>

@@ -15,6 +15,8 @@
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/2.3.5/css/dataTables.bootstrap5.css" rel="stylesheet">
 
 
 </head>
@@ -60,15 +62,20 @@
 
                     <?php if ($_user?->role == "Admin"): ?>
                         <?= set_cart() ?>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="/product/product_maintenance.php">📦 Product</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">Management</a>
+                            <ul class="dropdown-menu">
+                                <a class="dropdown-item" href="/product/product_maintenance.php">📦 Product</a>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="/member/userList.php">👥 User List</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="/order/order_list.php">📄 Order List</a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="/member/userList.php">👥 User List</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="/order/order_list.php">📄 Order List</a>
-                        </li>
+
+
                     <?php endif ?>
 
                     <?php if (!$_user): ?>
@@ -95,15 +102,21 @@
                     <?php endif ?>
 
                     <?php if ($_user): ?>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="/user/profile.php">👤 Profile</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">Account</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="/user/profile.php">👤 Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="/user/password.php">🔑 Password</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="/user/logout.php">🚪 Logout</a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="/user/password.php">🔑 Password</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="/user/logout.php">🚪 Logout</a>
-                        </li>
+
                     <?php endif ?>
 
                 </ul>

@@ -2,11 +2,7 @@
 
 require '../base.php';
 
-$_title = 'Payment Detail';
-include '../head.php';
 auth("Member");
-
-
 if (is_post()) {
 
     $userInfo = $_db->prepare('SELECT * FROM user_payment WHERE user_id = ?');
@@ -59,6 +55,8 @@ if (is_post()) {
         redirect("payment.php");
     }
 }
+$_title = 'Payment Detail';
+include '../head.php';
 ?>
 
 <div class="payment-container">

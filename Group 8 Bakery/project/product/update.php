@@ -39,7 +39,7 @@ if (is_post()) {
         $_err['stock'] = "Required";
     }
 
-    if(!$description){
+    if (!$description) {
         $_err['description'] = "Required";
     }
 
@@ -73,7 +73,7 @@ if (is_post()) {
                               SET price = ?,name = ?,photo = ?,stock = ?,description = ?
                               WHERE id = ?
                             ');
-        $stm->execute([$price, $name, $photo, $stock,$description,$id]);
+        $stm->execute([$price, $name, $photo, $stock, $description, $id]);
 
         temp('info', 'Update Sucessful');
         redirect('product_maintenance.php');
@@ -83,40 +83,59 @@ if (is_post()) {
 $_title = "Product Update";
 include '../head.php';
 ?>
+<div class="container mt-3">
+    <form method="post" class="updateProduct" enctype="multipart/form-data">
 
-<form method="post" class="updateProduct" enctype="multipart/form-data">
-    <label for="id">Id :</label>
-    <b><?= $id ?></b>
-    <?= err('id') ?><br>
+        <div class="input-group">
+            <span class="input-group-text">Id</span>
+            <?= html_text('id', 'maxlength="100"', 'disabled', 'value="<?= $id ?>"', "class='form-control-plaintext'") ?>
+            <?= err('id') ?><br>
+        </div>
+        <br>
 
-    <label for="name">Name :</label>
-    <?= html_text('name', 'maxlength="100"') ?>
-    <?= err('name') ?><br>
+        <div class="input-group">
+            <span class="input-group-text">Name</span>
+            <?= html_text('name', 'maxlength="100"') ?>
+            <?= err('name') ?><br>
+        </div>
+        <br>
 
-    <label for="price">Price(RM) :</label>
-    <?= html_number('price', '1', '100', '0.01') ?>
-    <?= err('price') ?><br>
+        <div class="input-group">
+            <span class="input-group-text">Price(RM)</span>
+            <?= html_number('price', '1', '100', '0.01') ?>
+            <?= err('price') ?><br>
+        </div>
+        <br>
 
-    <label for="stock">Stock :</label>
-    <?= html_number('stock', '0', '100', '1', 'value = $stock') ?>
-    <?= err('stock') ?><br>
+        <div class="input-group">
+            <span class="input-group-text">Stock</span>
+            <?= html_number('stock', '0', '100', '1', 'value = $stock') ?>
+            <?= err('stock') ?><br>
+        </div>
+        <br>
 
-    <label for="description">Description</label>
-    <?= html_textarea('description', 'rows="4"', 'cols="55"') ?>
-    <?= err("description") ?>
+        <div class="input-group">
+            <span class="input-group-text">Description</span>
+            <?= html_textarea('description', 'rows="4"', 'cols="55"') ?>
+            <?= err("description") ?>
+        </div>
+        <br>
 
-    <label for="photo">Photo:</label>
-    <label class="upload" tabindex="0">
-        <?= html_file('photo', 'image/*', 'hidden') ?>
-        <img src="/product_img/<?= $photo ?>">
-    </label>
-    <?= err('photo') ?>
+        <div class="input-group">
+            <span class="input-group-text">Photo</span>
+            <label class="upload" tabindex="0">
+                <?= html_file('photo', 'image/*', 'hidden') ?>
+                <img src="/product_img/<?= $photo ?>">
+            </label>
+            <?= err('photo') ?>
+        </div>
+        <br>
 
-    <section>
-        <button class="updateSub">Submit ✔</button>
-        <button type="reset" class="updateReset">Reset ⟳</button>
-    </section>
-</form>
-
+        <section>
+            <button class="updateSub">Submit ✔</button>
+            <button type="reset" class="updateReset">Reset ⟳</button>
+        </section>
+    </form>
+</div>
 <?php
 include '../foot.php';

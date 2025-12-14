@@ -1,6 +1,5 @@
 <?php
 require '../base.php';
-include '../head.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_logout'])) {
@@ -12,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_logout'])) {
 
 
 $_SESSION['previous_page'] = $_SERVER['HTTP_REFERER'] ?? 'dashboard.php'; 
+include '../head.php';
 ?>
 
 <script>

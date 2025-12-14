@@ -24,7 +24,7 @@ include 'head.php';
                         <h4 class="card-title"><?= $product->name ?></h4>
                         <p class="card-text">RM <?= number_format($product->price, 2) ?></p>
                         <p class="card-text"><?= $product->stock ?> pieces available</p>
-                        <a href="detail.php?id=<?= $product->id ?>" class="btn btn-danger">Detail</a>
+                        <a href="product/detail.php?id=<?= $product->id ?>" class="btn btn-danger">Detail</a>
                     </div>
                 </div>
             </div>

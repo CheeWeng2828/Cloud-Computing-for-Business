@@ -63,7 +63,7 @@ include '../head.php';
                     <td><?= $s->total ?></td>
                     <td><?= $s->name ?></td>
                     <td><?= $s->status ?></td>
-                    <td> <button data-get="orderdetail.php?id=<?= $s->id ?>">Detail</button></td>
+                    <td> <button class="btn btn-info" data-get="orderdetail.php?id=<?= $s->id ?>">Detail</button></td>
                 </tr>
             <?php endforeach ?>
         </tbody>

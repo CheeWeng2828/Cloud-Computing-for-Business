@@ -101,7 +101,7 @@ function encode($value)
 function html_textarea($key, $attr = '', $attr2 = '')
 {
     $value = encode($GLOBALS[$key] ?? '');
-    echo "<textarea id='$key' name='$key' $attr $attr2>$value</textarea>";
+    echo "<textarea id='$key' name='$key' class='form-control' $attr $attr2>$value</textarea>";
 }
 
 function html_text($key, $attr = '', $attr2 = '',$attr3 = '')
@@ -125,7 +125,7 @@ function html_search($key, $attr = ' ')
 function html_number($key, $min = '', $max = '', $step = '', $attr = '', $attr2 = '')
 {
     $value = encode($GLOBALS[$key] ?? '');
-    echo "<input type='number' name='$key' id='$key' value='$value' min='$min' max='$max' step='$step' $attr $attr2>";
+    echo "<input type='number' class='form-control' name='$key' id='$key' value='$value' min='$min' max='$max' step='$step' $attr $attr2>";
 }
 
 function table_headers($fields, $sort, $dir, $href = '')
