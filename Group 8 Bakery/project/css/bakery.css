@@ -128,9 +128,49 @@ h3 {
     }
 }
 
+/* error text */
 .err {
-    color: red;
+  color: #b00020;                 /* readable error red */
+  background: rgba(176, 0, 32, .04); /* subtle background */
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 0.9rem;
+  margin-top: 6px;
+  display: inline-block;
+  line-height: 1.2;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+  animation: fadeIn .16s ease;
 }
+
+/* placeholder to keep layout stable when no error */
+.err-placeholder {
+  display: block;
+  height: 1.5rem; /* match approx height of .err so layout doesn't jump */
+}
+
+/* subtle input outline for invalid state (bootstrap will already handle this if you use it) */
+input.is-invalid,
+textarea.is-invalid,
+select.is-invalid {
+  border-color: #d9534f;
+  box-shadow: 0 0 0 0.12rem rgba(217, 83, 79, 0.12);
+}
+
+/* small icon inside error (optional) */
+.err::before {
+  content: "⚠";
+  margin-right: 6px;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 0.95em;
+}
+
+/* animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-3px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 
 
 /*===================================================================================
